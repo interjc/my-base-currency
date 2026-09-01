@@ -3,6 +3,8 @@ import { describe, expect, it } from "vitest";
 import {
   convertAmount,
   getEffectiveTargetCurrencies,
+  mergeTargetSelection,
+  moveCurrencyToFront,
   parseAmount,
   sanitizePreferences,
   sortCurrencyCodes,
@@ -32,6 +34,7 @@ describe("preferences", () => {
     expect(
       sanitizePreferences(
         {
+          locale: "en",
           inputCurrency: "eur",
           targetCurrencies: ["cny", "JPY", "CNY", "GBP", "AUD", "USD", "XXX"],
         },
@@ -46,6 +49,19 @@ describe("preferences", () => {
   it("uses CNY as the effective target when none is stored", () => {
     const preferences = sanitizePreferences({}, currencies);
     expect(getEffectiveTargetCurrencies(preferences, currencies)).toEqual(["CNY"]);
+  });
+
+  it("moves a selected currency to the front and keeps the rest", () => {
+    expect(moveCurrencyToFront(["CNY", "JPY", "EUR"], "jpy")).toEqual(["JPY", "CNY", "EUR"]);
+    expect(moveCurrencyToFront(["CNY", "JPY"], "GBP")).toEqual(["CNY", "JPY"]);
+  });
+
+  it("keeps the current order when merging a settings selection", () => {
+    expect(mergeTargetSelection(["JPY", "CNY"], ["CNY", "JPY", "EUR"])).toEqual([
+      "JPY",
+      "CNY",
+      "EUR",
+    ]);
   });
 });
 

@@ -82,6 +82,23 @@ export function getEffectiveTargetCurrencies(
     : [DEFAULT_INPUT_CURRENCY];
 }
 
+export function moveCurrencyToFront(codes: string[], code: string): string[] {
+  const normalized = code.toUpperCase();
+  const rest = codes.filter((item) => item !== normalized);
+  if (rest.length === codes.length) {
+    return [...codes];
+  }
+  return [normalized, ...rest];
+}
+
+export function mergeTargetSelection(current: string[], selected: string[]): string[] {
+  const selectedSet = new Set(selected);
+  const kept = current.filter((item) => selectedSet.has(item));
+  const keptSet = new Set(kept);
+  const added = selected.filter((item) => !keptSet.has(item));
+  return [...kept, ...added].slice(0, MAX_TARGET_CURRENCIES);
+}
+
 export function convertAmount(
   amount: number,
   inputCurrency: string,

@@ -20,6 +20,19 @@ const { title, description } = Astro.props;
     <meta name="theme-color" content="#101826" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      (() => {
+        try {
+          const stored = JSON.parse(localStorage.getItem("base-money.preferences.v1") || "null");
+          const locale = stored && stored.locale;
+          if (locale === "zh-CN" || locale === "zh-HK" || locale === "ja" || locale === "en") {
+            document.documentElement.lang = locale;
+          }
+        } catch {
+          /* Keep the prerendered Simplified Chinese default. */
+        }
+      })();
+    </script>
   </head>
   <body>
     <slot />
