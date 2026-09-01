@@ -1,16 +1,17 @@
 {
-  "$schema": "../../node_modules/wrangler/config-schema.json",
-  "name": "my-base-currency-web",
-  "compatibility_date": "2026-09-01",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "kv_namespaces": [
-    {
-      "binding": "EXCHANGE_RATES"
-    }
-  ],
-  "observability": {
-    "enabled": true
-  }
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "my-base-currency-web",
+	"compatibility_date": "2026-09-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"kv_namespaces": [
+		{
+			"binding": "EXCHANGE_RATES",
+			"id": "b4c7fcd16ea6465dbbfc747c924064d5"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
 }
