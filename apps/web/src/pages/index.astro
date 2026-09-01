@@ -1,0 +1,13 @@
+---
+import CurrencyCalculator from "../components/CurrencyCalculator.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Base Money｜看心里有数的价格"
+  description="Base Money 是一个 Minecraft 风格的即时多币种换算器，保存你的默认输入币种和最多五个本位币。"
+>
+  <CurrencyCalculator />
+</BaseLayout>

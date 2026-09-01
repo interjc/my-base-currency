@@ -1,0 +1,3 @@
+interface:
+  display_name: "Develop Base Money Web"
+  short_description: "Implement and review the Astro currency calculator"

@@ -1,0 +1,32 @@
+{
+  "name": "@base-money/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.19.0 <25"
+  },
+  "scripts": {
+    "dev": "wrangler types --include-runtime false && astro dev",
+    "build": "wrangler types --include-runtime false && astro check && astro build",
+    "check": "wrangler types --include-runtime false && astro check",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "preview": "astro preview",
+    "deploy": "pnpm run build && wrangler deploy",
+    "cf-typegen": "wrangler types --include-runtime false"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "14.2.6",
+    "@fontsource/press-start-2p": "5.3.0",
+    "astro": "7.2.10"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@playwright/test": "1.62.1",
+    "@types/node": "24.13.3",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11",
+    "wrangler": "4.127.1"
+  }
+}

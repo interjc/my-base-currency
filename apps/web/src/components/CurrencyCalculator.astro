@@ -1,0 +1,182 @@
+<a class="skip-link" href="#calculator">跳到换算器</a>
+
+<div class="world" aria-hidden="true">
+  <div class="cloud cloud-one"></div>
+  <div class="cloud cloud-two"></div>
+  <div class="floating-block block-one"></div>
+  <div class="floating-block block-two"></div>
+  <div class="ground-line"></div>
+</div>
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Base Money 首页">
+    <span class="brand-cube" aria-hidden="true"><span>¥</span></span>
+    <span class="brand-copy">
+      <strong>BASE MONEY</strong>
+      <small>你的本位币换算器</small>
+    </span>
+  </a>
+
+  <button class="pixel-button settings-trigger" id="open-settings" type="button">
+    <span class="gear" aria-hidden="true">⚙</span>
+    <span>设置</span>
+  </button>
+</header>
+
+<main id="calculator" tabindex="-1">
+  <section class="intro" aria-labelledby="page-title">
+    <p class="eyebrow"><span aria-hidden="true">◆</span> PERSONAL CURRENCY CONVERTER</p>
+    <h1 id="page-title">看心里有数的价格</h1>
+    <p class="intro-copy">输入一次，最多同时查看五种本位币。你的偏好只留在这台设备上。</p>
+  </section>
+
+  <section class="workbench" aria-label="汇率换算器">
+    <div class="bench-top" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="input-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="panel-kicker">AMOUNT TO CONVERT</p>
+          <h2>你看见的价格</h2>
+        </div>
+        <div class="torch" aria-hidden="true"><span></span></div>
+      </div>
+
+      <form id="amount-form" action="/" method="get" novalidate>
+        <fieldset>
+          <legend class="visually-hidden">输入待换算的金额和币种</legend>
+
+          <div class="amount-field">
+            <label for="amount">金额</label>
+            <p class="field-hint" id="amount-hint">可使用小数点或小数逗号，不需要输入货币符号。</p>
+            <div class="amount-control">
+              <span class="prompt" aria-hidden="true">›</span>
+              <input
+                id="amount"
+                name="amount"
+                type="text"
+                inputmode="decimal"
+                enterkeyhint="done"
+                autocomplete="off"
+                value="100"
+                aria-describedby="amount-hint amount-error"
+              />
+              <button class="clear-button" id="clear-amount" type="button" aria-label="清空金额">清空</button>
+            </div>
+            <p class="field-error" id="amount-error" aria-live="polite"></p>
+          </div>
+
+          <div class="currency-field">
+            <label for="input-currency">
+              <span class="wide-label">这次使用的币种</span>
+              <span class="mobile-label">输入币种</span>
+            </label>
+            <div class="select-shell">
+              <select id="input-currency" name="currency" aria-describedby="currency-hint">
+                <option value="USD">USD — 美元</option>
+              </select>
+            </div>
+            <p class="field-hint" id="currency-hint">在设置里可以修改下次打开时的默认币种。</p>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="sync-strip">
+        <span class="signal" id="sync-signal" aria-hidden="true"></span>
+        <div>
+          <strong id="sync-status" aria-live="polite">正在同步汇率…</strong>
+          <small id="rate-freshness">首次加载需要连接网络</small>
+        </div>
+      </div>
+
+      <div class="error-panel" id="rates-error" hidden>
+        <span aria-hidden="true">!</span>
+        <p>暂时无法获取汇率。金额会保留，你可以稍后重试。</p>
+        <button class="pixel-button compact" id="retry-rates" type="button">重新同步</button>
+      </div>
+    </div>
+
+    <div class="result-panel">
+      <div class="panel-heading result-heading">
+        <div>
+          <p class="panel-kicker">YOUR BASE CURRENCIES</p>
+          <h2>换算结果</h2>
+        </div>
+        <span class="mini-map" aria-hidden="true"><i></i></span>
+      </div>
+
+      <ul class="result-list" id="result-list" role="list">
+        <li class="result-card is-loading">
+          <span class="result-code">CNY</span>
+          <strong class="result-value">—</strong>
+          <small>等待汇率同步</small>
+        </li>
+      </ul>
+
+      <div class="formula-note">
+        <span aria-hidden="true">÷</span>
+        <p><strong>交叉汇率换算</strong><br />所有币种先换算为 USD 基准，再换算到你的本位币。</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="source-note">
+    汇率由 <a href="https://www.exchangerate-api.com" target="_blank" rel="noreferrer">ExchangeRate-API</a> 提供 · 每小时更新 · 仅供估算
+  </p>
+</main>
+
+<dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+  <div class="dialog-edge" aria-hidden="true"></div>
+  <div class="dialog-header">
+    <div>
+      <p class="panel-kicker">CURRENCY PREFERENCES</p>
+      <h2 id="settings-title">默认币种设置</h2>
+    </div>
+    <button class="icon-button" id="close-settings" type="button" aria-label="关闭设置">×</button>
+  </div>
+
+  <form id="settings-form">
+    <div class="settings-scroll">
+      <div class="settings-section">
+        <label for="default-input-currency">默认输入币种</label>
+        <div class="select-shell">
+          <select id="default-input-currency" name="defaultInputCurrency">
+            <option value="USD">USD — 美元</option>
+          </select>
+        </div>
+      </div>
+
+      <fieldset class="settings-section target-fieldset">
+        <legend>本位币</legend>
+        <div class="target-tools">
+          <div>
+            <label for="currency-search">搜索币种</label>
+            <input id="currency-search" type="search" placeholder="例如 JPY 或 日元" autocomplete="off" />
+          </div>
+          <output id="selection-count" for="target-currency-list">0 / 5</output>
+        </div>
+        <p class="field-hint" id="target-hint">最多选择 5 个；一个都不选时仍会显示 CNY。</p>
+        <div
+          class="currency-choice-list"
+          id="target-currency-list"
+          aria-describedby="target-hint target-limit-message"
+        ></div>
+        <p class="limit-message" id="target-limit-message" aria-live="polite"></p>
+      </fieldset>
+    </div>
+
+    <div class="dialog-actions">
+      <button class="text-button" id="reset-settings" type="button">恢复默认</button>
+      <div>
+        <button class="pixel-button muted" id="cancel-settings" type="button">取消</button>
+        <button class="pixel-button save" id="save-settings" type="submit">保存设置</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  import "../scripts/calculator";
+</script>
